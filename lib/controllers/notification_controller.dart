@@ -10,6 +10,15 @@ import 'package:notification_panel/data/utilities/urls.dart';
 
 class NotificationController extends GetxController {
   int size = 10;
+  bool isItemSelected = false;
+
+  bool checkedValue = false;
+
+  bool allSelected = false;
+
+  List<int> selectedNotificationsId = [];
+
+  List<int> selectedIndex = [];
 
   GetNotificationModel _getNotificationModel = GetNotificationModel();
 
@@ -45,6 +54,32 @@ class NotificationController extends GetxController {
     } else {
       return false;
     }
+  }
+
+
+  itemSelected(index,id){
+    isItemSelected = true;
+    selectedIndex.contains(index) ? selectedIndex.remove(index): selectedIndex.add(index) ;
+    selectedNotificationsId.add(id);
+    update();
+  }
+
+  selectAll(length) {
+    allSelected = !allSelected;
+
+    if (allSelected) {
+      for (int i = 0; i < length; i++) {
+        selectedIndex.remove(i);
+      }
+      selectedIndex = selectedIndex.toSet().toList();
+    } else {
+      for (int i = 0; i < length; i++) {
+        selectedIndex.add(i);
+      }
+      selectedIndex = selectedIndex.toSet().toList();
+    }
+
+    update();
   }
 
   incrementSize() {
