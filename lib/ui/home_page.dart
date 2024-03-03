@@ -37,10 +37,12 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         Get.to(() => const NotificationPage());
                       },
-                      child: badges.Badge(
-                        badgeContent:
-                            Text(notificationController.getNotificationModel.data?.totalunread.toString() ?? "0"),
-                        child: const Icon(Icons.notifications,size: 32,),
+                      child: SizedBox(
+                        child: badges.Badge(
+                          badgeContent:
+                              Text(notificationController.getNotificationModel.data?.totalunread.toString() ?? "0"),
+                          child: const Icon(Icons.notifications,size: 32,),
+                        ),
                       ),
                     );
                   }
