@@ -42,4 +42,11 @@ class _NotificationPageState extends State<NotificationPage> {
       ),
     );
   }
+  @override
+  void dispose() {
+    Get.find<NotificationController>().isItemSelected = false;
+    Get.find<NotificationController>().selectedIndex = [];
+    Get.find<NotificationController>().selectedNotificationsId = [];
+    super.dispose();
+  }
 }

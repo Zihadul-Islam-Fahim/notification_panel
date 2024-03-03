@@ -60,7 +60,9 @@ class NotificationController extends GetxController {
   itemSelected(index,id){
     isItemSelected = true;
     selectedIndex.contains(index) ? selectedIndex.remove(index): selectedIndex.add(index) ;
+    selectedIndex = selectedIndex.toSet().toList();
     selectedNotificationsId.add(id);
+    selectedNotificationsId = selectedNotificationsId.toSet().toList();
     update();
   }
 
@@ -68,9 +70,7 @@ class NotificationController extends GetxController {
     allSelected = !allSelected;
 
     if (allSelected) {
-      for (int i = 0; i < length; i++) {
-        selectedIndex.remove(i);
-      }
+        selectedIndex =[];
       selectedIndex = selectedIndex.toSet().toList();
     } else {
       for (int i = 0; i < length; i++) {
