@@ -74,6 +74,7 @@ class _NotificationPageState extends State<NotificationPage> {
                                     selectedNotifications,
                                     "Delete",
                                   );
+                                  log(result.toString());
                                   if (result) {
                                     Get.snackbar('Deleted',
                                         '${selectedNotifications.length} items Deleted',backgroundColor: Colors.green);
@@ -97,6 +98,7 @@ class _NotificationPageState extends State<NotificationPage> {
                                       await notificationController
                                           .updateNotification(
                                               selectedNotifications, "Read");
+                                  log(result.toString());
                                   if (result) {
                                     Get.snackbar('Read As Marked',
                                         '${selectedNotifications.length} items Marked',backgroundColor: Colors.green);

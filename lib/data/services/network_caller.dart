@@ -49,7 +49,7 @@ class NetworkCaller {
 
     final decodedResponse = jsonDecode(response.body);
 
-    if (response.statusCode == 200 && decodedResponse["msg"] == "success") {
+    if (response.statusCode == 200) {
       return NetworkResponse(
         isSuccess: true,
         statusCode: response.statusCode,
