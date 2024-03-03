@@ -16,7 +16,8 @@ class _NotificationPageState extends State<NotificationPage> {
 
   bool checkedValue = false;
 
-  List<int> selectedNotifications = [];
+  List<int> selectedNotificationsId = [];
+  List<int> selectedIndex = [];
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +38,12 @@ class _NotificationPageState extends State<NotificationPage> {
                         notificationController.notificationList[index].title ?? ''),
                     subtitle: Text(
                         notificationController.notificationList[index].description ?? ''),
-                    value: checkedValue,
+                    value: selectedIndex.contains(index) ? true : false,
                     onChanged: (newValue) {
                       isItemSelected = true;
-                      selectedNotifications.add(notificationController.notificationList[index].id!.toInt());
+                      selectedIndex.contains(index) ? selectedIndex.remove(index): selectedIndex.add(index) ;
+
+                      selectedNotificationsId.add(notificationController.notificationList[index].id!.toInt());
                       setState(() {});
                     },
                     controlAffinity: ListTileControlAffinity.leading,
@@ -71,16 +74,18 @@ class _NotificationPageState extends State<NotificationPage> {
                                 onPressed: () async {
                                   bool result = await notificationController
                                       .updateNotification(
-                                    selectedNotifications,
+                                    selectedNotificationsId,
                                     "Delete",
                                   );
                                   log(result.toString());
                                   if (result) {
                                     Get.snackbar('Deleted',
-                                        '${selectedNotifications.length} items Deleted',backgroundColor: Colors.green);
+                                        '${selectedNotificationsId.length} items Deleted',
+                                        backgroundColor: Colors.green);
                                   } else {
                                     Get.snackbar(
-                                        'Failed ', 'Marked as read Failed',backgroundColor: Colors.red);
+                                        'Failed ', 'Marked as read Failed',
+                                        backgroundColor: Colors.red);
                                   }
                                 },
                                 child: const Text(
@@ -97,14 +102,16 @@ class _NotificationPageState extends State<NotificationPage> {
                                   final bool result =
                                       await notificationController
                                           .updateNotification(
-                                              selectedNotifications, "Read");
+                                              selectedNotificationsId, "Read");
                                   log(result.toString());
                                   if (result) {
                                     Get.snackbar('Read As Marked',
-                                        '${selectedNotifications.length} items Marked',backgroundColor: Colors.green);
+                                        '${selectedNotificationsId.length} items Marked',
+                                        backgroundColor: Colors.green);
                                   } else {
                                     Get.snackbar(
-                                        'Failed ', 'Read As Marked Failed',backgroundColor: Colors.red);
+                                        'Failed ', 'Read As Marked Failed',
+                                        backgroundColor: Colors.red);
                                   }
                                 },
                                 child: const Text(
@@ -120,9 +127,10 @@ class _NotificationPageState extends State<NotificationPage> {
                     ),
                   )
                 : const SizedBox()
-          ],
-        );
-      }),
+            ],
+          );
+        },
+      ),
     );
   }
 }
