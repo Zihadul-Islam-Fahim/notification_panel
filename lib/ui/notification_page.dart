@@ -72,7 +72,6 @@ class _NotificationPageState extends State<NotificationPage> {
     Get.find<NotificationController>().isItemSelected = false;
     Get.find<NotificationController>().selectedIndex = [];
     Get.find<NotificationController>().selectedNotificationsId = [];
-    Get.find<ScrollerController>().scrollController.dispose();
     super.dispose();
   }
 
