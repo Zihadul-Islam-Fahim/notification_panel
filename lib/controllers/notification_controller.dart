@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:notification_panel/data/models/get_notification_model.dart';
@@ -27,15 +28,20 @@ class NotificationController extends GetxController {
   List<NotificationModel> get notificationList => _notificationList;
 
   Future<bool> getNotification() async {
-    NetworkResponse networkResponse =
-        await NetworkCaller().getRequest(Urls.getNotification(size));
-    if (networkResponse.isSuccess) {
-      _getNotificationModel =
-          GetNotificationModel.fromJson(networkResponse.responseData);
-      _notificationList = _getNotificationModel.data?.notificationList ?? [];
-      update();
-      return true;
-    } else {
+    try {
+      NetworkResponse networkResponse =
+          await NetworkCaller().getRequest(Urls.getNotification(size));
+      if (networkResponse.isSuccess) {
+        _getNotificationModel =
+            GetNotificationModel.fromJson(networkResponse.responseData);
+        _notificationList = _getNotificationModel.data?.notificationList ?? [];
+        update();
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      Get.snackbar("Failed", e.toString(),backgroundColor: Colors.red);
       return false;
     }
   }
@@ -45,11 +51,16 @@ class NotificationController extends GetxController {
       "notification_Ids": id,
       "status": status
     };
-    NetworkResponse networkResponse = await NetworkCaller()
-        .postRequest(Urls.updateNotification, body: inputParams);
-    if (networkResponse.isSuccess) {
-      return true;
-    } else {
+    try {
+      NetworkResponse networkResponse = await NetworkCaller()
+          .postRequest(Urls.updateNotification, body: inputParams);
+      if (networkResponse.isSuccess) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      Get.snackbar("Failed", e.toString(),backgroundColor: Colors.red);
       return false;
     }
   }

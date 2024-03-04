@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    Get.find<NotificationController>().getNotification();
+     Get.find<NotificationController>().getNotification();
     super.initState();
   }
 
