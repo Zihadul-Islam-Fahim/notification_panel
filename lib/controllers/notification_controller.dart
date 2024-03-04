@@ -41,7 +41,7 @@ class NotificationController extends GetxController {
         return false;
       }
     } catch (e) {
-      Get.snackbar("Failed", e.toString(),backgroundColor: Colors.red);
+      Get.snackbar("API Call Failed", e.toString(),backgroundColor: Colors.red,duration: const Duration(seconds: 10));
       return false;
     }
   }
@@ -60,7 +60,7 @@ class NotificationController extends GetxController {
         return false;
       }
     } catch (e) {
-      Get.snackbar("Failed", e.toString(),backgroundColor: Colors.red);
+      Get.snackbar("API Call Failed","Server error or null data.",backgroundColor: Colors.red);
       return false;
     }
   }
