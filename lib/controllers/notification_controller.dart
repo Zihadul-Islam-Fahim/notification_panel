@@ -1,7 +1,5 @@
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-
-import 'package:http/http.dart' as http;
 import 'package:notification_panel/data/models/get_notification_model.dart';
 import 'package:notification_panel/data/models/network_response.dart';
 import 'package:notification_panel/data/models/notification_model.dart';
@@ -56,10 +54,11 @@ class NotificationController extends GetxController {
     }
   }
 
-
-  itemSelected(index,id){
+  itemSelected(index, id) {
     isItemSelected = true;
-    selectedIndex.contains(index) ? selectedIndex.remove(index): selectedIndex.add(index) ;
+    selectedIndex.contains(index)
+        ? selectedIndex.remove(index)
+        : selectedIndex.add(index);
     selectedIndex = selectedIndex.toSet().toList();
     selectedNotificationsId.add(id);
     selectedNotificationsId = selectedNotificationsId.toSet().toList();
@@ -67,16 +66,15 @@ class NotificationController extends GetxController {
   }
 
   selectAll(length) {
-    allSelected = !allSelected;
-
     if (allSelected) {
-        selectedIndex =[];
-      selectedIndex = selectedIndex.toSet().toList();
+      selectedIndex = [];
+      allSelected = false;
     } else {
       for (int i = 0; i < length; i++) {
         selectedIndex.add(i);
       }
       selectedIndex = selectedIndex.toSet().toList();
+      allSelected = true;
     }
 
     update();
@@ -84,6 +82,7 @@ class NotificationController extends GetxController {
 
   incrementSize() {
     size += 10;
+    getNotification();
     update();
   }
 }

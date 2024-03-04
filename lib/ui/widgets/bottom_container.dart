@@ -6,18 +6,24 @@ Container bottomContainer(NotificationController controller) {
   return Container(
     height: Get.height * 0.1,
     width: Get.width,
-    color: Colors.grey.shade500,
+    color: Colors.teal.withOpacity(0.2),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        ElevatedButton(
-          onPressed: () {
-            controller.selectAll(controller.notificationList.length);
-          },
-          child: const Text(
-            'Select All',
-
-          ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Checkbox(
+              value: controller.allSelected,
+              onChanged: (value) {
+                controller.selectAll(controller.notificationList.length);
+              },
+            ),
+            const Text(
+              'All',
+            ),
+          ],
         ),
         Row(
           children: [
@@ -29,8 +35,7 @@ Container bottomContainer(NotificationController controller) {
                 );
 
                 if (result) {
-                  Get.snackbar('Deleted',
-                      'Selected items Deleted',
+                  Get.snackbar('Deleted', 'Selected items Deleted',
                       backgroundColor: Colors.green);
                 } else {
                   Get.snackbar('Failed ', 'Marked as read Failed',
@@ -49,8 +54,7 @@ Container bottomContainer(NotificationController controller) {
                 final bool result = await controller.updateNotification(
                     controller.selectedNotificationsId, "Read");
                 if (result) {
-                  Get.snackbar('Read As Marked',
-                      'Selected items Marked',
+                  Get.snackbar('Read As Marked', 'Selected items Marked',
                       backgroundColor: Colors.green);
                 } else {
                   Get.snackbar('Failed ', 'Read As Marked Failed',
@@ -59,7 +63,6 @@ Container bottomContainer(NotificationController controller) {
               },
               child: const Text(
                 'Mark As Read',
-
               ),
             ),
           ],

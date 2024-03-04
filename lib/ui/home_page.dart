@@ -12,8 +12,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-
   @override
   void initState() {
     Get.find<NotificationController>().getNotification();
@@ -26,32 +24,36 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Container(
           color: Colors.grey,
-          height: Get.height*0.07,
-          padding: EdgeInsets.all(20),
+          height: Get.height * 0.07,
+          padding: const EdgeInsets.all(20),
           child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                GetBuilder<NotificationController>(
-                  builder: (notificationController) {
-                    return GestureDetector(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              GetBuilder<NotificationController>(
+                builder: (notificationController) {
+                  return badges.Badge(
+                    badgeContent: Text(
+                        notificationController.getNotificationModel.data?.totalunread.toString() ?? "0"
+                    ),
+                    child: GestureDetector(
                       onTap: () {
                         Get.to(() => const NotificationPage());
                       },
-                      child: SizedBox(
-                        child: badges.Badge(
-                          badgeContent:
-                              Text(notificationController.getNotificationModel.data?.totalunread.toString() ?? "0"),
-                          child: const Icon(Icons.notifications,size: 32,),
+                      child: const SizedBox(
+                        width: 35,
+                        child: Icon(
+                          Icons.notifications,
+                          size: 42,
                         ),
                       ),
-                    );
-                  }
-                )
-              ],
-            ),
+                    ),
+                  );
+                },
+              )
+            ],
+          ),
         ),
       ),
-
     );
   }
 }
