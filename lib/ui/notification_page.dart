@@ -28,6 +28,17 @@ class _NotificationPageState extends State<NotificationPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Notifications"),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Get.find<NotificationController>().onCancel();
+              },
+              child: const Text(
+                "Cancel",
+                style: TextStyle(color: Colors.white),
+            ),
+          )
+        ],
       ),
       body: GetBuilder<NotificationController>(
         builder: (controller) {

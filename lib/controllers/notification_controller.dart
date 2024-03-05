@@ -96,4 +96,11 @@ class NotificationController extends GetxController {
     getNotification();
     update();
   }
+
+  onCancel(){
+    isItemSelected = false;
+    selectedIndex=[];
+    selectedNotificationsId=[];
+    update();
+  }
 }
