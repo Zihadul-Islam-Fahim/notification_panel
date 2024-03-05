@@ -5,6 +5,7 @@ ListTile notificationListTile(NotificationController controller, int index) {
   return ListTile(
     title: Text(controller.notificationList[index].title ?? ''),
     subtitle: Text(controller.notificationList[index].description ?? ''),
+    trailing: controller.notificationList[index].readStatus == 'Yes' ? const Icon(Icons.mark_email_unread) : null,
     onTap: () {
       controller.itemSelected(
         index,
